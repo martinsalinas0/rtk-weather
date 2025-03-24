@@ -1,60 +1,51 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import ChartCard from "./chartCard";
 
-
-
-export default function FetchFiveDay () { 
-
-  const [term, setTerm] = useState(''); 
-  const [data, setData] = useState(''); 
-  const [searchValue, setSearchValue] = useState('')
+export default function FetchFiveDay() {
+  const [term, setTerm] = useState("");
+  const [data, setData] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-  
-  const handleInput = (event) => { 
-    setTerm(event.target.value); 
-  }; 
+
+  const handleInput = (event) => {
+    setTerm(event.target.value);
+  };
 
   const handleTheSearch = () => {
-    if (term) { 
-      setSearchValue(term)
-    }; 
-  }; 
-
-  const handleEnterPress = (event) => { 
-    if (event.key === 'Enter'){ 
-      handleTheSearch(); 
+    if (term) {
+      setSearchValue(term);
     }
-  }
+  };
 
-
-useEffect(() => { 
-  const FetchFiveDay = async () => {
-    try { 
-      const response = await axios.get( 
-        "https://api.openweathermap.org/data/2.5/forecast", 
-        { 
-          params: { 
-            q: searchValue, 
-            units: 'imperial', 
-            appid: API_KEY
+  useEffect(() => {
+    const FetchFiveDay = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.openweathermap.org/data/2.5/forecast",
+          {
+            params: {
+              q: searchValue,
+              units: "imperial",
+              appid: API_KEY,
+            },
           }
-        }
-      ); 
-      setData(response.data)
-      console.log(response.data)
-    } catch (error) { 
-      console.log('error', error)
-      setData(null)
+        );
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log("error", error);
+        setData(null);
+      }
+    };
+    if (searchValue) {
+      FetchFiveDay();
     }
-  }
-  if (searchValue) { 
-    FetchFiveDay()
-  }
-}, [searchValue, API_KEY])
+  }, [searchValue, API_KEY]);
 
-let tempArray = [];
+  let tempArray = [];
   let humidArray = [];
   let pressureArray = [];
 
@@ -91,24 +82,33 @@ let tempArray = [];
           </div>
         </div>
 
-        
+       
 
         {data && (
           <div>
             <div
-              className="card p-4 mb-4"
+              className="card text-dark bg-info mb-3"
               style={{ width: "55rem", margin: "0 auto" }}
             >
-              <h2 className="card-title mx-2">{data.city.name}</h2>
-              <p className="card-text">
+              <div className="card-header">Current Weather</div>
+              <div className="card-body">
+                <h2 className="card-title">{data.city.name}</h2>
+                <p className="card-text"></p>
+<p className="card-text">
                 Temperature: {data.list[0].main.temp} °F
               </p>
               <p className="card-text">
                 Humidity: {data.list[0].main.humidity} %
               </p>
-              <p className="card-text">
+              <p className="card-text m-1">
                 Pressure: {data.list[0].main.pressure} hPa
               </p>
+
+
+
+
+              </div>
+              
             </div>
 
             <div className="d-flex flex-wrap justify-content-center gap-3">
@@ -130,4 +130,3 @@ let tempArray = [];
     </div>
   );
 }
-

@@ -76,13 +76,14 @@ export default function FetchFiveDay() {
               placeholder="Enter a city"
               className="form-control"
             />
-            <button className="btn btn-outline-primary" onClick={handleTheSearch}>
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleTheSearch}
+            >
               Search
             </button>
           </div>
         </div>
-
-       
 
         {data && (
           <div>
@@ -94,21 +95,16 @@ export default function FetchFiveDay() {
               <div className="card-body">
                 <h2 className="card-title">{data.city.name}</h2>
                 <p className="card-text"></p>
-<p className="card-text">
-                Temperature: {data.list[0].main.temp} °F
-              </p>
-              <p className="card-text">
-                Humidity: {data.list[0].main.humidity} %
-              </p>
-              <p className="card-text m-1">
-                Pressure: {data.list[0].main.pressure} hPa
-              </p>
-
-
-
-
+                <p className="card-text">
+                  Temperature: {data.list[0].main.temp} °F
+                </p>
+                <p className="card-text">
+                  Humidity: {data.list[0].main.humidity} %
+                </p>
+                <p className="card-text m-1">
+                  Pressure: {data.list[0].main.pressure} hPa
+                </p>
               </div>
-              
             </div>
 
             <div className="d-flex flex-wrap justify-content-center gap-3">

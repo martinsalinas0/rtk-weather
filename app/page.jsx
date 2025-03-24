@@ -1,12 +1,11 @@
 import "bootstrap/dist/css/bootstrap.css";
-import SearchBar from "./components/SearchBar";
-import TableList from "./components/Table";
+
+import FetchFiveDay from "./components/fetchFiveDay";
 
 export default function Home() {
   return (
     <main>
-     <SearchBar /> 
-     <TableList /> 
+      <FetchFiveDay /> 
     </main>
   ); 
 }

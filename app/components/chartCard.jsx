@@ -10,9 +10,7 @@ import {
 export default function ChartCards({ dataArray, color }) {
   const { forecastData } = useSelector((state) => state.forecast);
 
-  if (!dataArray) {
-    return <div>Error: dataArray is not defined!</div>;
-  }
+ 
 
   return (
     <div className="container">

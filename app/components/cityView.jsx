@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCity, fetchForecast, resetList } from "@/store/slices/forecastSlice";
-import ChartCards from "./chartCard";
+import {
+  deleteCity,
+  fetchForecast,
+  resetList,
+} from "@/store/slices/forecastSlice";
 
 import {
   Sparklines,
@@ -14,6 +17,7 @@ export default function CityView() {
   const { forecastData, loading, error, cities } = useSelector(
     (state) => state.forecast
   );
+
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState("");
@@ -21,59 +25,34 @@ export default function CityView() {
   useEffect(() => {}, []);
 
   const handleSearch = () => {
-    if (query) {
+    if (!query || query.trim() === "") {
+      alert("Search cannot be empty");
+      setQuery("");
+    } else {
       dispatch(fetchForecast(query));
       setQuery("");
     }
   };
 
   const handleReset = () => {
-
-
-    if (confirm('Are you sure you want to reset? ')) { 
-       dispatch(resetList())
+    if (confirm("Are you sure you want to reset? ")) {
+      dispatch(resetList());
     }
-   
-
-  }
+  };
 
   const handleInput = (event) => {
     setQuery(event.target.value);
   };
 
   const handleDelete = (cityId) => {
-    if (confirm("are you sure you want to delete this city?")){ 
+    if (confirm("are you sure you want to delete this city?")) {
       dispatch(deleteCity(cityId));
     }
-    
-    
   };
-
-  // let tempArray = [];
-  // let pressureArray = [];
-  // let humidityArray = [];
-
-  // if (forecastData?.list?.length) {
-  //   for (let i = 0; i < forecastData.list.length; i++) {
-  //     const item = forecastData.list[i];
-  //     tempArray.push(item.main.temp);
-  //     humidityArray.push(item.main.humidity);
-  //     pressureArray.push(item.main.pressure);
-  //   }
-  // }
-
-  // console.log(pressureArray);
-  // console.log(humidityArray);
-  // console.log(tempArray);
 
   function average(arr) {
     return arr.reduce((sum, num) => sum + num) / arr.length;
   }
-
-  // const tempAvg = Math.round(average(tempArray));
-  // const humidAvg = Math.round(average(humidityArray));
-  // const pressAvg = Math.round(average(pressureArray));
-  // // console.log(tempArray);
 
   return (
     <div className="container">
@@ -96,12 +75,15 @@ export default function CityView() {
       </div>
       <div className="container">
         <div className=" text-center">
-          <button type="button" 
-          className="btn btn-danger btn-sm"
-          onClick={handleReset}>
+          <button
+            type="button"
+            className="btn btn-danger btn-sm"
+            onClick={handleReset}
+          >
             {" "}
-            RESET
+            reset list
           </button>
+          <button className="m-2  btn btn-success btn-sm">set default</button>
         </div>
       </div>
 
@@ -113,7 +95,7 @@ export default function CityView() {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col"></th>
                 <th scope="col">City</th>
                 <th scope="col">Temperature (°F)</th>
                 <th scope="col">Humidity (%)</th>
@@ -137,9 +119,7 @@ export default function CityView() {
 
                 return (
                   <tr key={city.id} className="align-bottom">
-                    <td scope="row" className="align-middle">
-                      {city.id}
-                    </td>
+                    <td scope="row" className="align-middle"></td>
                     <td className="align-middle">
                       <h2>{city.name}</h2>
                     </td>

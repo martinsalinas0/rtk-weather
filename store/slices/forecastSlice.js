@@ -30,11 +30,9 @@ export const fetchForecast = createAsyncThunk(
         pressure: forecastData.list.map((item) => item.main.pressure),
       };
 
-      // console.log(forecastData);
-      // console.log(weatherInfo);
       return weatherInfo;
     } catch (error) {
-      return rejectWithValue(error.response + 'ee' || "error");
+      return rejectWithValue(error.response + "ee" || "error");
     }
   }
 );
@@ -63,9 +61,9 @@ const forecastSlice = createSlice({
       })
       .addCase(fetchForecast.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.error = null; 
+        state.error = null;
         state.forecastData = action.payload;
-        // state.cities.push(action.payload);
+
         console.log(action.payload);
         const cityIdNo = state.cities.some(
           (city) => city.id === action.payload.id
@@ -76,13 +74,13 @@ const forecastSlice = createSlice({
           state.cities.push(action.payload);
         } else {
           console.log("duplicate");
-          alert("city already here");
+          alert("That city is already in the list.");
         }
+        city;
       })
       .addCase(fetchForecast.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-
       });
   },
 });

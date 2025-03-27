@@ -76,11 +76,12 @@ const forecastSlice = createSlice({
           console.log("duplicate");
           alert("That city is already in the list.");
         }
-        city;
+       
       })
       .addCase(fetchForecast.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+        alert('error')
       });
   },
 });

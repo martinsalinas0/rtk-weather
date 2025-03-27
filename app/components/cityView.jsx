@@ -83,7 +83,7 @@ export default function CityView() {
             {" "}
             reset list
           </button>
-          <button className="m-2  btn btn-success btn-sm">set default</button>
+          
         </div>
       </div>
 
